@@ -5,6 +5,13 @@
 { config, pkgs, ... }:
 
 {
+  # go go gadget CPU instructions!
+  # nixpkgs.hostPlatform = {
+  #   gcc.arch = "znver3";
+  #   gcc.tune = "znver3";
+  #   system = "x86_64-linux";
+  # };
+
   nix = {
     # https://github.com/NixOS/nix/issues/11728#issuecomment-2613076734 for download-buffer-size
     extraOptions = ''
