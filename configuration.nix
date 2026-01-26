@@ -156,6 +156,27 @@
 
     # Enable the OpenSSH daemon.
     openssh.enable = true;
+
+    avahi = {
+      enable = true;
+      publish.enable = true;
+      publish.userServices = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+
+    fwupd.enable = true;
+
+    rsyncd = {
+      enable = true;
+    };
+
+    smartd = {
+      enable = true;
+      devices = [ {device = "/dev/sda";} {device = "/dev/sdb";} {device = "/dev/sdc";} {device = "/dev/sdd";} {device = "/dev/sde";} {device = "/dev/sdf";}];
+      defaults.monitored = "-a -o on -s (S/../.././02|L/../../7/04)";
+    };
+
   };
   security.rtkit.enable = true;
   users.groups.remotebuild = {};
