@@ -65,11 +65,11 @@
     };
 
     supportedFilesystems = [ "zfs" ];
-    # zfs = {
-    #   forceImportRoot = false;
-    #   extraPools = [ "droplet" ];
-    #   devNodes = "/dev/disk/by-id";
-    # };
+    zfs = {
+      forceImportRoot = false;
+      extraPools = [ "pothole" ];
+      devNodes = "/dev/disk/by-id";
+    };
 
     loader = {
       # Bootloader.
