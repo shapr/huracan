@@ -6,6 +6,7 @@
 
 {
   # go go gadget CPU instructions!
+
   # nixpkgs.hostPlatform = {
   #   gcc.arch = "znver3";
   #   gcc.tune = "znver3";
@@ -121,11 +122,11 @@
 
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
-    xserver.enable = true;
+    xserver.enable = false;
 
     # Enable the KDE Plasma Desktop Environment.
-    displayManager.sddm.enable = true;
-    desktopManager.plasma6.enable = true;
+    # displayManager.sddm.enable = true;
+    # desktopManager.plasma6.enable = true;
 
     # Configure ymap in X11
     xserver.xkb = {
@@ -151,13 +152,7 @@
       #media-session.enable = true;
     };
 
-    programs = {
 
-      # Some programs need SUID wrappers, can be configured further or are
-      # started in user sessions.
-      mtr.enable = true;
-      zsh.enable = true;
-    };
     # programs.gnupg.agent = {
     #   enable = true;
     #   enableSSHSupport = true;
@@ -188,6 +183,24 @@
       defaults.monitored = "-a -o on -s (S/../.././02|L/../../7/04)";
     };
 
+  };
+
+  programs = {
+
+    # Some programs need SUID wrappers, can be configured further or are
+    # started in user sessions.
+    bat.enable = true;
+    mtr.enable = true;
+    nix-ld.enable = true;
+    nix-index = { # how do I use this again?
+      enable = true;
+      enableZshIntegration = true;
+    };
+    htop.enable = true;
+    starship.enable = true;
+    # sniffnet.enable = true;
+    tcpdump.enable = true;
+    zsh.enable = true;
   };
   security.rtkit.enable = true;
   users.groups.remotebuild = {};
