@@ -7,11 +7,11 @@
 {
   # go go gadget CPU instructions!
 
-  # nixpkgs.hostPlatform = {
-  #   gcc.arch = "znver3";
-  #   gcc.tune = "znver3";
-  #   system = "x86_64-linux";
-  # };
+  nixpkgs.hostPlatform = {
+    gcc.arch = "znver4";
+    gcc.tune = "znver4";
+    system = "x86_64-linux";
+  };
 
   nix = {
     # https://github.com/NixOS/nix/issues/11728#issuecomment-2613076734 for download-buffer-size
@@ -139,18 +139,18 @@
 
     # Enable sound with pipewire.
     pulseaudio.enable = false;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
+    # pipewire = {
+    #   enable = true;
+    #   alsa.enable = true;
+    #   alsa.support32Bit = true;
+    #   pulse.enable = true;
+    #   # If you want to use JACK applications, uncomment this
+    #   #jack.enable = true;
 
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
-    };
+    #   # use the example session manager (no others are packaged yet so this is enabled by default,
+    #   # no need to redefine it in your config for now)
+    #   #media-session.enable = true;
+    # };
 
 
     # programs.gnupg.agent = {
@@ -197,7 +197,7 @@
       enableZshIntegration = true;
     };
     htop.enable = true;
-    starship.enable = true;
+    # starship.enable = true;
     # sniffnet.enable = true;
     tcpdump.enable = true;
     zsh.enable = true;
@@ -226,7 +226,7 @@
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -247,7 +247,7 @@
     pciutils
     screen
     smartmontools
-    starship
+    # starship
     vim
     wget
     zoxide
