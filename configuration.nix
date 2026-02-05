@@ -64,7 +64,7 @@
   boot = {
 
     # kernelPackages = pkgs.linuxPackages_6_17;
-    # this fails messily, no native kernel for AMD EPYC?!
+    # this WORKS! Why does it fail for znver3 ?!
     kernelPackages = with pkgs; let tune = "skylake"; in (linuxKernel.packagesFor (linux_6_17.override ({
     stdenv = stdenvAdapters.addAttrsToDerivation {
       env.KCPPFLAGS = "-march=${tune} -O2";
