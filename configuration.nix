@@ -65,7 +65,7 @@
 
     # kernelPackages = pkgs.linuxPackages_6_17;
     # this WORKS! Why does it fail for znver3 ?!
-    kernelPackages = with pkgs; let tune = "skylake"; in (linuxKernel.packagesFor (linux_6_17.override ({
+    kernelPackages = with pkgs; let tune = "skylake-avx512"; in (linuxKernel.packagesFor (linux_6_17.override ({
     stdenv = stdenvAdapters.addAttrsToDerivation {
       env.KCPPFLAGS = "-march=${tune} -O2";
       env.KCFLAGS = "-march=${tune} -O2";
