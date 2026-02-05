@@ -8,8 +8,8 @@
   # go go gadget CPU instructions!
 
   nixpkgs.hostPlatform = {
-    gcc.arch = "znver4";
-    gcc.tune = "znver4";
+    gcc.arch = "znver3";
+    gcc.tune = "znver3";
     system = "x86_64-linux";
   };
 
@@ -63,7 +63,14 @@
     ];
   boot = {
 
-    kernelPackages = pkgs.linuxPackages_6_17;
+    # kernelPackages = pkgs.linuxPackages_6_17;
+    # this fails messily, no native kernel for AMD EPYC?!
+    kernelPackages = with pkgs; let tune = "skylake"; in (linuxKernel.packagesFor (linux_6_17.override ({
+    stdenv = stdenvAdapters.addAttrsToDerivation {
+      env.KCPPFLAGS = "-march=${tune} -O2";
+      env.KCFLAGS = "-march=${tune} -O2";
+    } stdenv;
+    })));
 
     initrd = {
       network.ssh = {
@@ -214,8 +221,8 @@
       isNormalUser = true;
       description = "shae";
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [
-      ];
+      # packages = with pkgs; [
+      # ];
     };
     remotebuild = {
       isSystemUser = true;
