@@ -1,10 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{...}: # I needed this to pass in emacs-overlay, but now I forget how to remove it!
-{ config, pkgs, ... }:
-
+{...}:
+# I needed this to pass in emacs-overlay, but now I forget how to remove it!
 {
+  config,
+  pkgs,
+  ...
+}: {
   # go go gadget CPU instructions!
 
   nixpkgs.hostPlatform = {
@@ -41,7 +44,11 @@
       min-free = 10 * 1024 * 1024;
       max-free = 200 * 1024 * 1024;
 
-      trusted-users = [ "root" "shae" "remotebuild" ];
+      trusted-users = [
+        "root"
+        "shae"
+        "remotebuild"
+      ];
       substituters = [
         "http://nix-community.cachix.org"
         "https://cache.iog.io"
@@ -57,32 +64,39 @@
     };
   };
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
   boot = {
-
     # kernelPackages = pkgs.linuxPackages_6_17;
     # this WORKS! Why does it fail for znver3 ?!
-    kernelPackages = with pkgs; let tune = "skylake-avx512"; in (linuxKernel.packagesFor (linux_6_17.override ({
-    stdenv = stdenvAdapters.addAttrsToDerivation {
-      env.KCPPFLAGS = "-march=${tune} -O2";
-      env.KCFLAGS = "-march=${tune} -O2";
-    } stdenv;
-    })));
+    kernelPackages = with pkgs; let
+      tune = "skylake-avx512";
+    in (linuxKernel.packagesFor (
+      linux_6_17.override {
+        stdenv =
+          stdenvAdapters.addAttrsToDerivation {
+            env.KCPPFLAGS = "-march=${tune} -O2";
+            env.KCFLAGS = "-march=${tune} -O2";
+          }
+          stdenv;
+      }
+    ));
 
     initrd = {
       network.ssh = {
-        authorizedKeys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYlatXccSMal4uwSogKUEfJgrJ3YsH2uSbLFfgz6Vam" ];
+        authorizedKeys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYlatXccSMal4uwSogKUEfJgrJ3YsH2uSbLFfgz6Vam"
+        ];
         enable = true;
       };
     };
 
-    supportedFilesystems = [ "zfs" ];
+    supportedFilesystems = ["zfs"];
     zfs = {
       forceImportRoot = false;
-      extraPools = [ "pothole" ];
+      extraPools = ["pothole"];
       devNodes = "/dev/disk/by-id";
     };
 
@@ -108,7 +122,6 @@
   # Set your time zone.
   time.timeZone = "America/New_York";
   i18n = {
-
     # Select internationalisation properties.
     defaultLocale = "en_US.UTF-8";
 
@@ -126,7 +139,6 @@
   };
 
   services = {
-
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
     xserver.enable = false;
@@ -159,7 +171,6 @@
     #   #media-session.enable = true;
     # };
 
-
     # programs.gnupg.agent = {
     #   enable = true;
     #   enableSSHSupport = true;
@@ -186,20 +197,26 @@
 
     smartd = {
       enable = true;
-      devices = [ {device = "/dev/sda";} {device = "/dev/sdb";} {device = "/dev/sdc";} {device = "/dev/sdd";} {device = "/dev/sde";} {device = "/dev/sdf";}];
+      devices = [
+        {device = "/dev/sda";}
+        {device = "/dev/sdb";}
+        {device = "/dev/sdc";}
+        {device = "/dev/sdd";}
+        {device = "/dev/sde";}
+        {device = "/dev/sdf";}
+      ];
       defaults.monitored = "-a -o on -s (S/../.././02|L/../../7/04)";
     };
-
   };
 
   programs = {
-
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     bat.enable = true;
     mtr.enable = true;
     nix-ld.enable = true;
-    nix-index = { # how do I use this again?
+    nix-index = {
+      # how do I use this again?
       enable = true;
       enableZshIntegration = true;
     };
@@ -212,7 +229,6 @@
   security.rtkit.enable = true;
   users.groups.remotebuild = {};
   users.users = {
-
     # Enable touchpad support (enabled default in most desktopManager).
     # services.xserver.libinput.enable = true;
 
@@ -220,7 +236,10 @@
     shae = {
       isNormalUser = true;
       description = "shae";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
       # packages = with pkgs; [
       # ];
     };
@@ -228,7 +247,7 @@
       isSystemUser = true;
       group = "remotebuild";
       useDefaultShell = true;
-      openssh.authorizedKeys.keyFiles = [ ./remotebuild.pub ];
+      openssh.authorizedKeys.keyFiles = [./remotebuild.pub];
     };
   };
 
@@ -275,5 +294,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
