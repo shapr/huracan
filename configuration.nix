@@ -139,6 +139,36 @@
   };
 
   services = {
+    # HARDWARE
+    fwupd.enable = true;
+    fstrim.enable = true;
+    bpftune.enable = true;
+    smartd = {
+      enable = true;
+      autodetect = true;
+      # the line above means I don't need the line below
+      # devices = [
+      #   {device = "/dev/sda";}
+      #   {device = "/dev/sdb";}
+      #   {device = "/dev/sdc";}
+      #   {device = "/dev/sdd";}
+      #   {device = "/dev/sde";}
+      #   {device = "/dev/sdf";}
+      # ];
+      # this is the default
+      # defaults.monitored = "-a -o on -s (S/../.././02|L/../../7/04)";
+    };
+
+    # thermald.enable = true; # does this work on huracan?
+
+    zfs = {
+      autoScrub =  {
+        pools = [ "pothole" ];
+        interval = [ "monthly" ];
+      };
+    };
+
+    # GRAPHICS - no, this is a server
     # Enable the X11 windowing system.
     # You can disable this if you're only using the Wayland session.
     xserver.enable = false;
@@ -156,6 +186,7 @@
     # Enable CUPS to print documents.
     printing.enable = true;
 
+    # SOUND - no, this is a server
     # Enable sound with pipewire.
     pulseaudio.enable = false;
     # pipewire = {
@@ -176,7 +207,7 @@
     #   enableSSHSupport = true;
     # };
 
-    # List services that you want to enable:
+    # NETWORK
 
     # Enable the OpenSSH daemon.
     openssh.enable = true;
@@ -189,24 +220,15 @@
       openFirewall = true;
     };
 
-    fwupd.enable = true;
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "client";
+    };
 
     rsyncd = {
       enable = true;
     };
 
-    smartd = {
-      enable = true;
-      devices = [
-        {device = "/dev/sda";}
-        {device = "/dev/sdb";}
-        {device = "/dev/sdc";}
-        {device = "/dev/sdd";}
-        {device = "/dev/sde";}
-        {device = "/dev/sdf";}
-      ];
-      defaults.monitored = "-a -o on -s (S/../.././02|L/../../7/04)";
-    };
   };
 
   programs = {
