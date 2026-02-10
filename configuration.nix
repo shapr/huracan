@@ -95,9 +95,10 @@
 
     supportedFilesystems = ["zfs"];
     zfs = {
-      forceImportRoot = false;
-      extraPools = ["pothole"];
       devNodes = "/dev/disk/by-id";
+      extraPools = ["pothole"];
+      forceImportRoot = false;
+      requestEncryptionCredentials = false; # well this was awkward
     };
 
     loader = {
