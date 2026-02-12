@@ -292,6 +292,8 @@
     git
     htop
     ipmitool
+    jujutsu
+    nix-direnv
     openssl
     pciutils
     screen
