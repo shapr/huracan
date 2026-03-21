@@ -74,7 +74,7 @@
     kernelPackages = with pkgs; let
       tune = "skylake-avx512";
     in (linuxKernel.packagesFor (
-      linux_6_17.override {
+      linux_6_18.override {
         stdenv =
           stdenvAdapters.addAttrsToDerivation {
             env.KCPPFLAGS = "-march=${tune} -O2";
