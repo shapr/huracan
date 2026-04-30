@@ -74,7 +74,7 @@
     kernelPackages = with pkgs; let
       tune = "skylake-avx512";
     in (linuxKernel.packagesFor (
-      linux_6_18.override {
+      linux_latest.override {
         stdenv =
           stdenvAdapters.addAttrsToDerivation {
             env.KCPPFLAGS = "-march=${tune} -O2";
@@ -265,6 +265,11 @@
       ];
       # packages = with pkgs; [
       # ];
+    };
+    rose = {
+      isNormalUser = true;
+      description = "rose";
+      openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMP+hU6MEY6gEDjd2qm4H+s9HJOQZgeZEXTBpdU+pwh+ lirestar22@gmail.com"];
     };
     remotebuild = {
       isSystemUser = true;
