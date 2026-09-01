@@ -9,12 +9,12 @@
   ...
 }: {
 
-  # go go gadget CPU instructions!
-  nixpkgs.hostPlatform = {
-    gcc.arch = "znver3";
-    gcc.tune = "znver3";
-    system = "x86_64-linux";
-  };
+  # # go go gadget CPU instructions!
+  # nixpkgs.hostPlatform = {
+  #   gcc.arch = "znver3";
+  #   gcc.tune = "znver3";
+  #   system = "x86_64-linux";
+  # };
 
   nix = {
     # https://github.com/NixOS/nix/issues/11728#issuecomment-2613076734 for download-buffer-size
@@ -69,18 +69,18 @@
   boot = {
     # kernelPackages = pkgs.linuxPackages_6_17;
     # this WORKS! Why does it fail for znver3 ?!
-    kernelPackages = with pkgs; let
-      tune = "skylake-avx512";
-    in (linuxKernel.packagesFor (
-      linux_6_18.override {
-        stdenv =
-          stdenvAdapters.addAttrsToDerivation {
-            env.KCPPFLAGS = "-march=${tune} -O2";
-            env.KCFLAGS = "-march=${tune} -O2";
-          }
-          stdenv;
-      }
-    ));
+    # kernelPackages = with pkgs; let
+    #   tune = "skylake-avx512";
+    # in (linuxKernel.packagesFor (
+    #   linux_latest.override {
+    #     stdenv =
+    #       stdenvAdapters.addAttrsToDerivation {
+    #         env.KCPPFLAGS = "-march=${tune} -O2";
+    #         env.KCFLAGS = "-march=${tune} -O2";
+    #       }
+    #       stdenv;
+    #   }
+    #));
 
     initrd = {
       network.ssh = {
