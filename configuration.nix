@@ -67,7 +67,7 @@
     ./hardware-configuration.nix
   ];
   boot = {
-    # kernelPackages = pkgs.linuxPackages_6_17;
+    # kernelPackages = pkgs.linuxPackages_7_2;
     # this WORKS! Why does it fail for znver3 ?!
     # kernelPackages = with pkgs; let
     #   tune = "skylake-avx512";
@@ -226,6 +226,21 @@
 
     rsyncd = {
       enable = true;
+    };
+
+    znc = {
+      enable = true;
+      mutable = false;
+      useLegacyConfig = false;
+      openFirewall = true; # default port 5000
+      confOptions.networks.libera = {
+        channels = [ "#ScannedInAvian" ];
+        modules = [
+        "nickserv 4dd1ctSA!!"
+        ];
+        useSSL = true;
+        nick = "shapr";
+      };
     };
 
   };
