@@ -288,6 +288,7 @@
   environment.systemPackages = with pkgs; [
     acpi
     btop
+    devenv
     direnv
     dust
     comma
