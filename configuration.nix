@@ -238,7 +238,7 @@
           Admin = true;
           Nick = "shapr";
           AltNick = "shapr`";
-          LoadModule = ["controlpanel" "adminlog"];
+          LoadModule = [ "controlpanel" ];
           Network.libera = {
             Server = "irc.libera.chat +6697";
             Chan = {
