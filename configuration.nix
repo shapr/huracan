@@ -231,15 +231,27 @@
     znc = {
       enable = true;
       mutable = false;
-      useLegacyConfig = false;
       openFirewall = true; # default port 5000
-      confOptions.networks.libera = {
-        channels = [ "#ScannedInAvian" ];
-        modules = [
-        "nickserv 4dd1ctSA!!"
-        ];
-        useSSL = true;
-        nick = "shapr";
+      useLegacyConfig = false;
+      config = {
+        User.shapr = {
+          Admin = true;
+          Nick = "shapr";
+          AltNick = "shapr`";
+          LoadModule = ["controlpanel" "adminlog"];
+          Network.libera = {
+            Server = "irc.libera.chat +6697";
+            Chan = {
+              "#ScannedInAvian" = {Detached = false;};
+
+            };
+          };
+          Pass.password = {
+            Method = "sha256";
+            Hash = "c3f47a04a234303ea972b37cc1a5d4e58c303b9946eafc5ae0a18605f65b1e3c";
+            Salt = "!(VfF+;Cnc?9r)_v.g!6";
+          };
+        };
       };
     };
 
