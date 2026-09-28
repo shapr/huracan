@@ -67,7 +67,7 @@
     ./hardware-configuration.nix
   ];
   boot = {
-    # kernelPackages = pkgs.linuxPackages_7_2;
+    kernelPackages = pkgs.linuxPackages_7_2;
     # this WORKS! Why does it fail for znver3 ?!
     # kernelPackages = with pkgs; let
     #   tune = "skylake-avx512";
